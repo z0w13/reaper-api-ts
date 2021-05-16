@@ -1,0 +1,28 @@
+{
+  "name": "reaper-api",
+  "version": "0.0.1",
+  "description": "Reaper API",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Zowie <contact@zowie.cx>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.18",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.3.0",
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  }
+}
