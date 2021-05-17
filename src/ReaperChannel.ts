@@ -46,7 +46,7 @@ export interface ReaperChannel {
     green: number
     blue: number
     alpha: number // Doesn't really matter tbh always 0.2 it seems
-  }
+  } | null
 }
 
 export function parseChannel(input: Array<string>): ReaperChannel {
