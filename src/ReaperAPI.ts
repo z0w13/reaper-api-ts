@@ -15,7 +15,7 @@ export class ReaperCall {
     this.args = args
   }
 
-  public toString() {
+  public toString(): string {
     return [this.command, ...this.args].join("/")
   }
 }
@@ -38,7 +38,6 @@ export default class ReaperAPI {
     if (isError(resp)) {
       return resp
     }
-    console.log(resp)
 
     return parseChannels(resp)
   }
