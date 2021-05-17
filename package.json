@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "build": "tsc --build tsconfig.json",
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint 'src/**/*.ts' && prettier -c 'src/**/*.ts'"
   },
   "dependencies": {
     "axios": "^0.21.1"
@@ -18,8 +19,12 @@
     "@types/chai": "^4.2.18",
     "@types/mocha": "^8.2.2",
     "@types/node": "^15.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
     "chai": "^4.3.4",
+    "eslint": "^7.26.0",
     "mocha": "^8.4.0",
+    "prettier": "^2.0.0",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
     "tslib": "^2.2.0",
