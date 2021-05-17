@@ -1,10 +1,9 @@
 import { ReaperChannel, parseChannels } from "./ReaperChannel"
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 import { isError, Result } from "./Utility"
+import { APIResponse, parseResponse } from "./APIResponse"
 
 export type ReaperCommand = "SET" | "TRACK"
-
-export type APIResponse = Array<Array<string>>
 
 export class ReaperCall {
   protected command: ReaperCommand
@@ -94,7 +93,7 @@ export default class ReaperAPI {
 
     try {
       const resp = await axios.get<string>(this.url + "/_/" + commandString)
-      return this.parseResponse(resp)
+      return parseResponse(resp)
     } catch (err) {
       if (err.response && err.response?.data?.error) {
         return new Error(err.response.data.error)
@@ -102,12 +101,5 @@ export default class ReaperAPI {
         return new Error(err)
       }
     }
-  }
-
-  protected parseResponse(resp: AxiosResponse<string>): Result<APIResponse> {
-    return resp.data
-      .trim()
-      .split("\n")
-      .map((line) => line.split("\t"))
   }
 }

@@ -1,3 +1,4 @@
+import { APIResponse } from "./APIResponse"
 import { flagSet } from "./Utility"
 import { ChannelFlags } from "./ChannelFlags"
 
@@ -86,8 +87,6 @@ export function parseChannel(input: Array<string>): ReaperChannel {
   }
 }
 
-export function parseChannels(
-  input: Array<Array<string>>,
-): Array<ReaperChannel> {
-  return input.map(parseChannel)
+export function parseChannels(input: APIResponse): Array<ReaperChannel> {
+  return input ? input.map(parseChannel) : []
 }
