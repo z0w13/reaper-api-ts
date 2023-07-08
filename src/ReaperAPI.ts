@@ -22,7 +22,13 @@ export class ReaperCall {
 
 export class ReaperMuteCall extends ReaperCall {
   constructor(channel: number, muted: boolean) {
-    super("SET", ["TRACK", channel.toString(), "MUTE", muted ? "1" : "0"])
+    super("SET", ["TRACK", channel, "MUTE", muted ? "1" : "0"])
+  }
+}
+
+export class ReaperMuteSendCall extends ReaperCall {
+  constructor(channel: number, send: number, muted: boolean) {
+    super("SET", ["TRACK", channel, "SEND", send, "MUTE", muted ? "1" : "0"])
   }
 }
 
@@ -65,15 +71,6 @@ export default class ReaperAPI {
     return resp[0]
   }
 
-  public async getChannelSend(channel: number, send: number): Promise<Result<ReaperChannelSend>> {
-    const resp = await this.request([new ReaperCall("GET", ["TRACK", channel, "SEND", send])])
-    if (isError(resp)) {
-      return resp
-    }
-
-    return parseChannelSends(resp)[0]
-  }
-
   public async muteChannel(idx: number): Promise<Result<APIResponse>> {
     return this.muteChannels([idx])
   }
@@ -92,6 +89,23 @@ export default class ReaperAPI {
     channels: Array<number>,
   ): Promise<Result<APIResponse>> {
     return this.request(channels.map((idx) => new ReaperMuteCall(idx, false)))
+  }
+
+  public async getChannelSend(channel: number, send: number): Promise<Result<ReaperChannelSend>> {
+    const resp = await this.request([new ReaperCall("GET", ["TRACK", channel, "SEND", send])])
+    if (isError(resp)) {
+      return resp
+    }
+
+    return parseChannelSends(resp)[0]
+  }
+
+  public async muteChannelSend(channel: number, send: number): Promise<Result<APIResponse>> {
+    return this.request([new ReaperMuteSendCall(channel, send, true)])
+  }
+
+  public async unmuteChannelSend(channel: number, send: number): Promise<Result<APIResponse>> {
+    return this.request([new ReaperMuteSendCall(channel, send, false)])
   }
 
   public async request(
