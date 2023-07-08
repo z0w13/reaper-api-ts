@@ -2,8 +2,9 @@ import { ReaperChannel, parseChannels } from "./ReaperChannel"
 import axios from "axios"
 import { isError, Result } from "./Utility"
 import { APIResponse, parseResponse } from "./APIResponse"
+import { ReaperChannelSend, parseChannelSends } from "./ReaperChannelSend"
 
-export type ReaperCommand = "SET" | "TRACK"
+export type ReaperCommand = "GET" | "SET" | "TRACK"
 
 export class ReaperCall {
   protected command: ReaperCommand
@@ -62,6 +63,15 @@ export default class ReaperAPI {
     }
 
     return resp[0]
+  }
+
+  public async getChannelSend(channel: number, send: number): Promise<Result<ReaperChannelSend>> {
+    const resp = await this.request([new ReaperCall("GET", ["TRACK", channel, "SEND", send])])
+    if (isError(resp)) {
+      return resp
+    }
+
+    return parseChannelSends(resp)[0]
   }
 
   public async muteChannel(idx: number): Promise<Result<APIResponse>> {
