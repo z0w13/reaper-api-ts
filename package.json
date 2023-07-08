@@ -1,6 +1,6 @@
 {
   "name": "@z0w13/reaper-api-ts",
-  "version": "0.0.4",
+  "version": "0.0.4-1",
   "description": "Reaper API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
